@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- bean은 객체라는 뜻 -->
+	<!-- 클래스에다가는 클래스명을 넣음 -->
+	<bean id="p" class="ex01.Person" />
+	
+	<!-- 생성자를 통한 의존성 주입 -->
+	<bean id="chef" class="ex02.Chef"/>
+	
+	<!-- 호텔이란걸 만들 때, 셰프라는걸 넣어라는 뜻, 왜냐면 호텔 생성자 매개변수가 셰프기 때문 -->
+	<bean id="hotel" class="ex02.Hotel">
+		<constructor-arg ref="chef"/>
+	</bean>
+	
+	<!-- 
+		setter를 통한 의존성 주입
+		name = set의 이름
+		value = 값
+		ref = 객체아이디
+	 -->
+	<bean id="ds" class="ex02.DataSource">
+		<property name="url" value="oracle:thin@localhost~~~"/>
+		<property name="uid" value="hr" />
+		<property name="upw" value="hr" />
+	</bean>
+	
+	<bean id="memberDAO" class="ex02.MemberDAO">
+		<property name="dataSource" ref="ds" />
+	</bean>
+	
+	<!-- list, map 등을 xml로 표현하는 방법 -->
+	<bean id="memberVO" class="ex03.MemberVO">
+		<property name="name" value="홍길동" />
+	</bean>
+	
+	
+
+	<bean class="ex03.Customer">
+		<!-- 이건 list를 나타내는 표현임(arraylist 같은거) -->
+		<property name="list">
+			<list>
+				<value>홍길동</value>
+				<value>이순신</value>
+				<value>홍길자</value>
+			</list>
+		</property>
+		
+		<!-- 이건 list 속 객체를 나타내는 표현(변수가 객체) -->
+		<property name="vo">
+			<list>
+				<ref bean="memberVO"/>
+					<bean class="ex03.MemberVO">
+						<property name="name" value="홍길동" />
+					</bean>
+			</list>
+		</property>
+		
+		<!-- 이건 Map -->
+		<property name="map">
+			<map>
+				<entry key="a1" value="홍길동" />
+				<entry key="a2">
+					<bean class="ex03.MemberVO">
+						<property name="name" value="이순신" />
+					</bean>
+				</entry>	
+			</map>
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+
+</beans>
