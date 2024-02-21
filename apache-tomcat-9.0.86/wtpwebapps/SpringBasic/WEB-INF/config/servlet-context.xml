@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 핸들러 어댑터, 핸들러 매핑 등을 활성화 -->
+	<annotation-driven />
+
+	<!-- 정적자원 맵핑 - resources폴더 안에 파일은 컨트로러를 실행하지 않고 곧바로 실행 -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- 이 패키지를 읽어서, @Controller @Service @Repository @Component를 bean으로 생성합니다 -->
+	<context:component-scan base-package="com.simple.controller" />
+
+	<!-- 뷰 리졸버 - 뷰 합성기 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+
+</beans:beans>
