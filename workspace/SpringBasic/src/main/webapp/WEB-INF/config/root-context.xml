@@ -3,5 +3,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!-- jdbc모듈 활성화 -->
+	
+	<!-- 커넥션풀 객체 생성 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" >
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="JSP" />
+		<property name="password" value="JSP" />
+	</bean>
+	
+	<!-- 위에 만든 데이터베이스 config를 의존성 주입 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg ref="hikariConfig"></constructor-arg>
+	</bean>
 		
 </beans>
