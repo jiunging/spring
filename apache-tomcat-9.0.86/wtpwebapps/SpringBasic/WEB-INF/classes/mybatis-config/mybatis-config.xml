@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<!-- doctype을 configuration으로 선언하면 마이바티스의 설정파일로 사용됩니다. -->  
-<configuration>
-	<typeAliases>
-		<typeAlias type="com.simple.command.ScoreVO" alias="ScoreVO"/>
-		<typeAlias type="com.simple.command.BoardVO" alias="BoardVO"/>
-	</typeAliases>
-
-</configuration> 
+  <configuration>
+  	<!-- 해당 vo타입을 xml에서 alias로 사용이 가능함 -->
+  	<typeAliases>
+  		<typeAlias type="com.simple.command.ScoreVO" alias="ScoreVO"/>
+  	</typeAliases>
+  	
+  	
+  </configuration>

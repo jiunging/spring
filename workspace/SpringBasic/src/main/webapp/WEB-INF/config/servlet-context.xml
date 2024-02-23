@@ -19,11 +19,11 @@
 	<!-- 뷰 리졸버 - 뷰 합성기 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="suffix" value=".jsp"/>
 	</beans:bean>
 	
 	<!-- 서비스 연결, bean으로 생성 -->
-	<beans:bean id="service" class="com.simple.service.ScoreServiceImpl" />
+<!-- 	<beans:bean id="service" class="com.simple.service.ScoreServiceImpl" /> -->
 
 
 </beans:beans>

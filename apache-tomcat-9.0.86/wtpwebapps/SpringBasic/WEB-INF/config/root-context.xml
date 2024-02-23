@@ -1,21 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!-- jdbc모듈 활성화 -->
 	
 	<!-- 커넥션풀 객체 생성 -->
+	
+	<bean id="DBproperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:/db-config/Hikari.properties"/>
+	</bean>
+	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" >
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-		<property name="username" value="JSP" />
-		<property name="password" value="JSP" />
+		<property name="driverClassName" value="${ds.driverClassName}"/>
+		<property name="jdbcUrl" value="${ds.jdbcUrl}"/>
+		<property name="username" value="${ds.username}" />
+		<property name="password" value="${ds.password}" />
 	</bean>
 	
 	<!-- 위에 만든 데이터베이스 config를 의존성 주입 -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
+	
+	<!-- 
+		mybatis 네임스페이스 추가
+		세션팩토리 빈 생성
+	 -->
+
+	<!-- 마이바티스 관련 설정 -->
+	 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	 	<property name="dataSource" ref="dataSource"/>
+	 	<!-- xml구현체 위치, classpath:/ 는 자바 resources 밑을 가리킴 -->
+	 	<property name="mapperLocations" value="classpath:/sqlmap/*.xml"/>
+	 	<!-- 마이바티스 관련한 외부 설정 파일 경로 -->
+ 	 	<property name="configLocation" value="classpath:/mybatis-config/mybatis-config.xml" />
+	 	 
+	 </bean>
+	 
+	<!-- 마이바티스의 인터페이스가 읽힐 수 있도록 경로 지정 -->
+	<mybatis-spring:scan base-package="com.simple.*" /> 	 
+	 
+	 
+	 
+	 
 		
 </beans>
